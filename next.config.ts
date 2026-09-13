@@ -1,16 +1,15 @@
 import type { NextConfig } from 'next';
 
 const isProd = process.env.NODE_ENV === 'production';
-const repoName = '/Wastewise_demowebsite'; // GitHub repository ka exact naam
+const repoName = '/Wastewise_demowebsite';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'export',
   trailingSlash: true,
-
-  // GitHub Pages subpath ke liye
   basePath: isProd ? repoName : '',
 
+  // ESLint build block ko rokne ke liye:
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -30,15 +29,6 @@ const nextConfig: NextConfig = {
   },
 
   transpilePackages: ['motion'],
-
-  webpack: (config, { dev }) => {
-    if (dev && process.env.DISABLE_HMR === 'true') {
-      config.watchOptions = {
-        ignored: /.*/,
-      };
-    }
-    return config;
-  },
 };
 
 export default nextConfig;
