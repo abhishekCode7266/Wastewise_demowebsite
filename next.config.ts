@@ -1,14 +1,14 @@
 import type { NextConfig } from 'next';
 
 const isProd = process.env.NODE_ENV === 'production';
-const repoName = '/Wastewise_demowebsite'; // Exact repository name
+const repoName = '/Wastewise_demowebsite'; // GitHub repository ka exact naam
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   output: 'export',
   trailingSlash: true,
 
-  // GitHub Pages ke subfolder path ke liye
+  // GitHub Pages subpath ke liye
   basePath: isProd ? repoName : '',
 
   eslint: {
@@ -42,3 +42,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
