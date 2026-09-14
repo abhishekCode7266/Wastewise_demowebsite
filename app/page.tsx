@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { 
   Menu, X, Leaf, Utensils, HeartHandshake, Users, 
   Clock, BellRing, CheckCircle, TrendingUp, ShieldCheck, 
-  ArrowRight
+  ArrowRight, CreditCard, Shield, Lock, Package, Calendar
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -16,8 +16,10 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
   const navLinks = [
     { name: "Home", href: "#home" },
     { name: "The Problem", href: "#problem" },
+    { name: "About", href: "#about" },
     { name: "Solution", href: "#solution" },
     { name: "How It Works", href: "#how-it-works" },
+    { name: "Deals", href: "#deals" },
     { name: "Impact", href: "#impact" },
   ];
 
@@ -168,7 +170,7 @@ const Hero = () => (
           transition={{ duration: 0.5, delay: 0.1 }}
           className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-tight mb-8"
         >
-          Don't waste good food. <br />
+          Don&apos;t waste good food. <br />
           <span className="text-[#007A55]">Share it.</span>
         </motion.h1>
         <motion.p 
@@ -214,7 +216,7 @@ const Problem = () => (
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-4">Lots Left Over Every Night</h3>
           <p className="text-gray-600 leading-relaxed text-lg">
-            At the end of the day, restaurants and marriage parties always have extra cooked food left. But since they don't know who needs it right now or how to arrange a quick pickup, throwing it out becomes the only easy option.
+            At the end of the day, restaurants and marriage parties always have extra cooked food left. But since they don&apos;t know who needs it right now or how to arrange a quick pickup, throwing it out becomes the only easy option.
           </p>
         </motion.div>
 
@@ -534,6 +536,142 @@ const Benefits = () => (
   </section>
 );
 
+const AboutWaste = () => (
+  <section id="about" className="py-20 bg-emerald-900 text-white">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <div className="inline-block bg-emerald-800 text-emerald-200 font-medium px-4 py-1.5 rounded-full text-sm mb-6">
+            About Food Waste
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">The True Cost of Wasted Meals</h2>
+          <p className="text-emerald-100 text-lg mb-6 leading-relaxed">
+            Every year, billions of tons of edible food are thrown away globally, contributing to massive greenhouse gas emissions and wasted resources. Meanwhile, millions go hungry. 
+          </p>
+          <ul className="space-y-4">
+            {[
+              "1/3 of all food produced globally goes to waste.",
+              "Wasted food accounts for 8% of global greenhouse emissions.",
+              "Saving just 25% of wasted food could feed all hungry people."
+            ].map((fact, idx) => (
+              <li key={idx} className="flex items-start gap-3">
+                <Leaf className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
+                <span className="text-emerald-50">{fact}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="relative">
+          <div className="aspect-square bg-emerald-800 rounded-3xl overflow-hidden relative border-4 border-emerald-700 shadow-2xl">
+            <div className="absolute inset-0 bg-black/20 z-10"></div>
+            <div className="w-full h-full object-cover bg-emerald-100 flex items-center justify-center p-8">
+               <div className="text-center">
+                  <div className="w-24 h-24 bg-emerald-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                     <Package className="w-12 h-12 text-emerald-700" />
+                  </div>
+                  <h3 className="text-emerald-900 font-bold text-2xl">Stop The Waste</h3>
+               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const DealsAndSubscription = () => (
+  <section id="deals" className="py-24 bg-gray-50 border-y border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-16">
+        <div className="inline-block bg-emerald-100 text-[#007A55] font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-200">
+          Save Food With Us
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Today&apos;s Waste-less Deals & Subscriptions</h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Access perfectly good surplus food at a fraction of the cost, or subscribe for regular rescue boxes. 100% secure payments.</p>
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-8 mb-12">
+        {/* Deal 1 */}
+        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow relative">
+          <div className="h-48 bg-orange-100 relative">
+             <div className="absolute top-4 right-4 bg-red-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md">-30%</div>
+             <div className="w-full h-full flex items-center justify-center">
+               <Utensils className="w-16 h-16 text-orange-300" />
+             </div>
+          </div>
+          <div className="p-6">
+            <h3 className="font-bold text-xl text-gray-900 mb-2">Leftover Lunch Special</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl font-bold text-[#007A55]">$13.00</span>
+              <span className="text-gray-400 line-through text-sm">$18.50</span>
+            </div>
+            <button className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-medium py-3 rounded-xl transition-colors shadow-md">
+              Claim Now
+            </button>
+          </div>
+        </div>
+
+        {/* Deal 2 */}
+        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow relative">
+          <div className="h-48 bg-emerald-100 relative">
+             <div className="absolute top-4 right-4 bg-red-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md">-20%</div>
+             <div className="w-full h-full flex items-center justify-center">
+               <Leaf className="w-16 h-16 text-emerald-300" />
+             </div>
+          </div>
+          <div className="p-6">
+            <h3 className="font-bold text-xl text-gray-900 mb-2">Daily Produce Box</h3>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl font-bold text-[#007A55]">$15.00</span>
+              <span className="text-gray-400 line-through text-sm">$18.75</span>
+            </div>
+            <button className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-medium py-3 rounded-xl transition-colors shadow-md">
+              Claim Now
+            </button>
+          </div>
+        </div>
+
+        {/* Subscription */}
+        <div className="bg-[#007A55] rounded-3xl overflow-hidden shadow-lg border border-emerald-700 text-white relative">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-10 -mr-10 -mt-10"></div>
+          <div className="p-8 flex flex-col h-full relative z-10">
+            <div className="bg-emerald-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-inner">
+              <Calendar className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="font-bold text-2xl mb-2">Weekly Rescue Pro</h3>
+            <p className="text-emerald-100 mb-6 text-sm">Get a guaranteed surplus box every week and maximize your impact.</p>
+            <div className="flex items-baseline gap-1 mb-8">
+              <span className="text-4xl font-extrabold">$49</span>
+              <span className="text-emerald-200 font-medium">/mo</span>
+            </div>
+            <button className="mt-auto w-full bg-white hover:bg-emerald-50 text-[#007A55] font-bold py-3 rounded-xl transition-colors shadow-md">
+              Subscribe Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Security Banner */}
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl p-6 border border-gray-200 shadow-sm flex flex-col sm:flex-row items-center gap-6 justify-center">
+        <div className="flex items-center gap-3 text-gray-700">
+          <Shield className="w-6 h-6 text-[#007A55]" />
+          <span className="font-medium">100% Secure Checkout</span>
+        </div>
+        <div className="hidden sm:block w-px h-8 bg-gray-200"></div>
+        <div className="flex items-center gap-3 text-gray-700">
+          <Lock className="w-6 h-6 text-[#007A55]" />
+          <span className="font-medium">Bank-Grade Encryption</span>
+        </div>
+        <div className="hidden sm:block w-px h-8 bg-gray-200"></div>
+        <div className="flex items-center gap-3 text-gray-700">
+          <CreditCard className="w-6 h-6 text-[#007A55]" />
+          <span className="font-medium">Multiple Payment Options</span>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
 const PilotForm = () => {
   const [role, setRole] = useState("Restaurant");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -552,10 +690,10 @@ const PilotForm = () => {
           <div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Ready for Our First Local Pilot</h2>
             <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Let's stop food waste right in our neighborhoods. We are excited to test our MVP in local dining areas, team up with restaurants, and onboard our very first shelters.
+              Let&apos;s stop food waste right in our neighborhoods. We are excited to test our MVP in local dining areas, team up with restaurants, and onboard our very first shelters.
             </p>
             <p className="text-lg font-medium text-[#007A55] bg-[#007A55]/20 inline-block px-4 py-2 rounded-lg">
-              Thank you so much! We'd love to hear your questions and thoughts.
+              Thank you so much! We&apos;d love to hear your questions and thoughts.
             </p>
           </div>
           
@@ -568,7 +706,7 @@ const PilotForm = () => {
                   <CheckCircle className="w-8 h-8" />
                 </div>
                 <h4 className="text-xl font-bold mb-2">Thank You!</h4>
-                <p className="text-gray-600">We've added you to our pilot list. We will be in touch shortly.</p>
+                <p className="text-gray-600">We&apos;ve added you to our pilot list. We will be in touch shortly.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -632,7 +770,7 @@ function MainApp() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "problem", "solution", "how-it-works", "impact", "pilot"];
+      const sections = ["home", "problem", "about", "solution", "how-it-works", "deals", "impact", "pilot"];
       let current = "home";
       
       for (const section of sections) {
@@ -657,9 +795,11 @@ function MainApp() {
       <main>
         <Hero />
         <Problem />
+        <AboutWaste />
         <Audience />
         <Solution />
         <HowItWorks />
+        <DealsAndSubscription />
         <Goals />
         <Benefits />
         <PilotForm />
@@ -692,7 +832,7 @@ export default function WasteWiseApp() {
             WasteWise
           </h1>
           <p className="text-xl md:text-2xl text-gray-300 mb-12 font-light">
-            Don't waste good food. <span className="text-emerald-400 font-medium">Share it.</span>
+            Don&apos;t waste good food. <span className="text-emerald-400 font-medium">Share it.</span>
           </p>
           
           <button 
