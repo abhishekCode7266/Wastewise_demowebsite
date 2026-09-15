@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const isProd = process.env.NODE_ENV === 'production';
-const repoName = '/Wastewise_demowebsite';
+const repoName = '/FoodWise';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
