@@ -4,7 +4,10 @@ import React, { useState, useEffect } from "react";
 import { 
   Menu, X, Leaf, Utensils, HeartHandshake, Users, 
   Clock, BellRing, CheckCircle, TrendingUp, ShieldCheck, 
-  ArrowRight, CreditCard, Shield, Lock, Package, Calendar
+  ArrowRight, CreditCard, Shield, Lock, Package, Calendar,
+  MapPin, Navigation, Truck, ShoppingBag, Globe2, Search,
+  Twitter, Instagram, Linkedin, Facebook, Mail, Phone,
+  Plus, Trash2, LayoutDashboard, FileText, Building2, Zap, CircleDollarSign, BarChart3, Briefcase, AlertTriangle, ShieldAlert, BadgeCheck, CreditCard as CreditCardIcon
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -15,11 +18,13 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
 
   const navLinks = [
     { name: "Home", href: "#home" },
-    { name: "The Problem", href: "#problem" },
-    { name: "About", href: "#about" },
-    { name: "Solution", href: "#solution" },
-    { name: "How It Works", href: "#how-it-works" },
-    { name: "Deals", href: "#deals" },
+    { name: "Partner Hub", href: "#partner-dashboard" },
+    { name: "Corporate Deals", href: "#corporate-deals" },
+    { name: "Order", href: "#order" },
+    { name: "Donate", href: "#donate" },
+    { name: "Pricing", href: "#pricing" },
+    { name: "Security", href: "#security" },
+    { name: "Track", href: "#track" },
     { name: "Impact", href: "#impact" },
   ];
 
@@ -31,7 +36,7 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
             <div className="bg-[#007A55] p-2 rounded-lg">
               <Leaf className="w-6 h-6 text-white" />
             </div>
-            <span className="font-bold text-2xl text-gray-900 tracking-tight">WasteWise</span>
+            <span className="font-bold text-2xl text-gray-900 tracking-tight">FoodWise</span>
           </div>
           
           <div className="hidden md:flex space-x-8 items-center">
@@ -46,26 +51,25 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
                 {link.name}
               </a>
             ))}
-            <a 
-              href="#pilot"
-              className="bg-[#007A55] hover:bg-[#006344] text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-md hover:shadow-lg"
-            >
-              Get Involved
-            </a>
+            <button className="bg-[#007A55] hover:bg-[#006344] text-white px-5 py-2.5 rounded-full text-sm font-medium transition-colors shadow-sm">
+              Get Started
+            </button>
           </div>
 
           <div className="md:hidden flex items-center">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-600 hover:text-gray-900">
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-gray-600 hover:text-gray-900 focus:outline-none p-2"
+            >
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -76,19 +80,12 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
                 <a
                   key={link.name}
                   href={link.href}
+                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-[#007A55] hover:bg-emerald-50 rounded-md"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-3 rounded-md text-base font-medium text-gray-700 hover:text-[#007A55] hover:bg-emerald-50"
                 >
                   {link.name}
                 </a>
               ))}
-              <a 
-                href="#pilot"
-                onClick={() => setIsOpen(false)}
-                className="block w-full text-center mt-4 bg-[#007A55] hover:bg-[#006344] text-white px-5 py-3 rounded-xl text-base font-medium transition-all shadow-sm"
-              >
-                Get Involved
-              </a>
             </div>
           </motion.div>
         )}
@@ -97,680 +94,707 @@ const Navbar = ({ activeSection }: { activeSection: string }) => {
   );
 };
 
-const LiveCounter = () => {
-  const [meals, setMeals] = useState(1420);
-  const [pickups, setPickups] = useState(12);
-
-  useEffect(() => {
-    const mealInterval = setInterval(() => {
-      setMeals(prev => prev + Math.floor(Math.random() * 3));
-    }, 3500);
-
-    const pickupInterval = setInterval(() => {
-      // Occasional new pickup
-      if (Math.random() > 0.7) {
-        setPickups(prev => prev + 1);
-        setTimeout(() => setPickups(prev => Math.max(12, prev - 1)), 15000); // simulate pickup completion
-      }
-    }, 8000);
-
-    return () => {
-      clearInterval(mealInterval);
-      clearInterval(pickupInterval);
-    };
-  }, []);
-
-  return (
-    <div className="flex flex-col sm:flex-row gap-6 mt-10 p-6 bg-white rounded-2xl shadow-xl shadow-green-900/5 border border-green-50">
-      <div className="flex items-center gap-4">
-        <div className="bg-emerald-100 p-4 rounded-full text-[#007A55]">
-          <Utensils className="w-8 h-8" />
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Meals Saved</p>
-          <p className="text-3xl font-bold text-gray-900">{meals.toLocaleString()}</p>
-        </div>
-      </div>
-      <div className="hidden sm:block w-px bg-gray-200"></div>
-      <div className="flex items-center gap-4">
-        <div className="bg-amber-100 p-4 rounded-full text-amber-600">
-          <Clock className="w-8 h-8" />
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Active Pickups</p>
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-500"></span>
-            </span>
-            <p className="text-3xl font-bold text-gray-900">{pickups}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const Hero = () => (
-  <section id="home" className="pt-32 pb-20 lg:pt-40 lg:pb-28 bg-gradient-to-b from-emerald-50 to-white overflow-hidden relative">
-    <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-[#007A55] opacity-5 blur-3xl pointer-events-none"></div>
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div className="text-center max-w-4xl mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="inline-block bg-emerald-100 text-[#007A55] font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-200"
-        >
-          Round 1 Submission | Team WasteWise
-        </motion.div>
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-tight mb-8"
-        >
-          Don&apos;t waste good food. <br />
-          <span className="text-[#007A55]">Share it.</span>
-        </motion.h1>
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto leading-relaxed"
-        >
-          Hey everyone! We built <span className="font-semibold text-gray-900">WasteWise</span> so that extra food from restaurants can go straight to local shelters instead of ending up in garbage cans.
-        </motion.p>
-        
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="flex justify-center"
-        >
-          <LiveCounter />
-        </motion.div>
-      </div>
-    </div>
-  </section>
-);
-
-const Problem = () => (
-  <section id="problem" className="py-20 bg-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Why Is So Much Good Food Thrown Away?</h2>
-        <p className="text-lg text-gray-600">The current system is broken. We have perfectly good meals going to waste simply because there is no easy way to connect surplus with need.</p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+  <section id="home" className="pt-32 pb-24 md:pt-40 md:pb-32 px-4 bg-emerald-50 border-b border-emerald-100 overflow-hidden">
+    <div className="max-w-7xl mx-auto">
+      <div className="grid lg:grid-cols-2 gap-12 items-center">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="bg-gray-50 rounded-3xl p-8 md:p-10 border border-gray-100 hover:shadow-lg transition-shadow relative overflow-hidden"
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gray-200 rounded-full blur-3xl opacity-50 -mr-10 -mt-10"></div>
-          <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6">
-            <Utensils className="w-7 h-7 text-gray-700" />
+          <div className="inline-flex items-center gap-2 bg-emerald-100 text-[#007A55] px-4 py-2 rounded-full text-sm font-semibold mb-8 border border-emerald-200">
+            <Globe2 className="w-4 h-4" /> National & International Network
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Lots Left Over Every Night</h3>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            At the end of the day, restaurants and marriage parties always have extra cooked food left. But since they don&apos;t know who needs it right now or how to arrange a quick pickup, throwing it out becomes the only easy option.
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight mb-6 leading-tight">
+            Rescue Food. <br/> Feed the World.
+          </h1>
+          <p className="text-xl text-gray-600 mb-10 leading-relaxed max-w-lg">
+            FoodWise connects surplus food from restaurants and farms to communities in need locally and globally. Order discounted surplus meals or donate to make an impact.
           </p>
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <button className="w-full sm:w-auto bg-[#007A55] hover:bg-[#006344] text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+              Explore Food Options <ArrowRight className="w-5 h-5" />
+            </button>
+            <button className="w-full sm:w-auto bg-white hover:bg-gray-50 text-gray-900 border-2 border-gray-200 px-8 py-4 rounded-full text-lg font-bold transition-all flex items-center justify-center gap-2">
+              Donate Surplus
+            </button>
+          </div>
         </motion.div>
-
+        
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="bg-red-50 rounded-3xl p-8 md:p-10 border border-red-100 hover:shadow-lg transition-shadow relative overflow-hidden"
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="relative"
         >
-          <div className="absolute top-0 right-0 w-32 h-32 bg-red-200 rounded-full blur-3xl opacity-50 -mr-10 -mt-10"></div>
-          <div className="w-14 h-14 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6">
-            <Clock className="w-7 h-7 text-red-500" />
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Running Out of Time</h3>
-          <p className="text-gray-600 leading-relaxed text-lg">
-            Food goes bad fast. Without a simple way to connect kitchen doors to nearby communities in minutes, local shelters miss out on fresh meals that could easily feed hungry people.
-          </p>
+          <div className="absolute inset-0 bg-emerald-200 rounded-3xl translate-x-4 translate-y-4 -z-10"></div>
+          <img 
+            src="https://images.unsplash.com/photo-1593113598332-cd288d649433?q=80&w=2070&auto=format&fit=crop" 
+            alt="Volunteers organizing food" 
+            className="rounded-3xl shadow-2xl object-cover w-full h-[500px]"
+          />
         </motion.div>
       </div>
     </div>
   </section>
 );
 
-const Audience = () => {
-  const audiences = [
-    {
-      icon: <Utensils className="w-8 h-8 text-[#007A55]" />,
-      title: "Restaurants & Caterers",
-      desc: "Places with extra food who want an easy, stress-free way to give it away instead of wasting it."
-    },
-    {
-      icon: <HeartHandshake className="w-8 h-8 text-[#007A55]" />,
-      title: "NGOs & Shelters",
-      desc: "Community centers that look out for people and need reliable daily food donations."
-    },
-    {
-      icon: <Users className="w-8 h-8 text-[#007A55]" />,
-      title: "Local Volunteers",
-      desc: "Regular folks nearby who are ready to help carry food from the restaurant to the shelter."
-    }
-  ];
-
+const PartnerDashboard = () => {
+  const [menuItems, setMenuItems] = useState([
+    { id: 1, name: "Extra Large Pizza", qty: "5 Portions", price: "$4.00" },
+    { id: 2, name: "Vegetable Curry", qty: "10 Portions", price: "$3.50" },
+  ]);
+  const [newItemName, setNewItemName] = useState("");
+  const [newItemQty, setNewItemQty] = useState("");
+  
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItemName) return;
+    const newItem = {
+      id: Date.now(),
+      name: newItemName,
+      qty: newItemQty || "1 Portion",
+      price: "Free / Discounted"
+    };
+    setMenuItems([...menuItems, newItem]);
+    setNewItemName("");
+    setNewItemQty("");
+  };
+  
+  const handleDelete = (id: number) => {
+    setMenuItems(menuItems.filter(item => item.id !== id));
+  };
+  
   return (
-    <section className="py-20 bg-emerald-50/50 border-y border-emerald-100">
+    <section id="partner-dashboard" className="py-24 bg-gray-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">Who Are We Helping?</h2>
-        <div className="grid md:grid-cols-3 gap-8">
-          {audiences.map((item, idx) => (
-            <motion.div 
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="w-20 h-20 mx-auto bg-emerald-50 rounded-full flex items-center justify-center mb-6">
-                {item.icon}
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
-              <p className="text-gray-600">{item.desc}</p>
-            </motion.div>
-          ))}
+        <div className="flex flex-col lg:flex-row gap-12 items-start">
+          {/* Dashboard Left Content */}
+          <div className="w-full lg:w-1/3 space-y-6">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Partner Dashboard</h2>
+              <p className="text-gray-600">Manage your daily surplus inventory and view real-time statistics.</p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+               <div className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm">
+                  <p className="text-sm font-medium text-gray-500 mb-1">Orders Taken</p>
+                  <p className="text-3xl font-bold text-gray-900">142</p>
+               </div>
+               <div className="bg-emerald-600 p-6 rounded-2xl border border-emerald-700 shadow-sm text-white">
+                  <p className="text-sm font-medium text-emerald-100 mb-1">Donations Given</p>
+                  <p className="text-3xl font-bold text-white">89</p>
+               </div>
+            </div>
+            
+            {/* Embedded User Image */}
+            <div className="mt-8 rounded-2xl overflow-hidden border border-gray-200 shadow-sm bg-white">
+              <img src="/Gemini_Generated_Image_7evglu7evglu7evg.png" alt="Dashboard Overview UI" className="w-full h-auto object-cover" />
+            </div>
+          </div>
+          
+          {/* Menu Management Right Content */}
+          <div className="w-full lg:w-2/3 bg-white p-8 rounded-3xl border border-gray-200 shadow-xl">
+             <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-[#007A55]" />
+                Food Menu Management
+             </h3>
+             
+             {/* Add Item Form */}
+             <form onSubmit={handleAdd} className="flex flex-col sm:flex-row gap-3 mb-8 pb-8 border-b border-gray-100">
+                <input 
+                  type="text" 
+                  value={newItemName}
+                  onChange={(e) => setNewItemName(e.target.value)}
+                  placeholder="Food Item Name (e.g. Pasta)" 
+                  className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55]"
+                />
+                <input 
+                  type="text" 
+                  value={newItemQty}
+                  onChange={(e) => setNewItemQty(e.target.value)}
+                  placeholder="Quantity" 
+                  className="w-full sm:w-32 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55]"
+                />
+                <button type="submit" className="bg-[#007A55] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#006344] transition-colors flex items-center justify-center gap-2 shadow-sm">
+                   <Plus className="w-4 h-4" /> Add
+                </button>
+             </form>
+             
+             {/* Current Menu Items */}
+             <div>
+                <p className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">Current Active Listings</p>
+                <div className="space-y-3">
+                   {menuItems.length === 0 ? (
+                     <div className="text-center py-8 text-gray-400 border-2 border-dashed border-gray-100 rounded-xl">No active items. Add food above.</div>
+                   ) : (
+                     menuItems.map(item => (
+                       <div key={item.id} className="flex items-center justify-between p-4 bg-gray-50 border border-gray-100 rounded-xl hover:border-gray-200 transition-colors">
+                          <div>
+                             <p className="font-bold text-gray-900">{item.name}</p>
+                             <p className="text-sm text-gray-500">{item.qty} • {item.price}</p>
+                          </div>
+                          <button onClick={() => handleDelete(item.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors">
+                             <Trash2 className="w-5 h-5" />
+                          </button>
+                       </div>
+                     ))
+                   )}
+                </div>
+             </div>
+             
+             {/* Contact & Organization Details Form */}
+             <div className="mt-12 pt-8 border-t border-gray-100">
+                <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                   <Users className="w-5 h-5 text-[#007A55]" />
+                   Update Organization Details
+                </h3>
+                <form onSubmit={(e) => { e.preventDefault(); alert("Details updated successfully!"); }} className="space-y-4">
+                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                         <label className="block text-sm font-medium text-gray-700 mb-1">Organization Name</label>
+                         <input type="text" defaultValue="FoodWise Partner Chapter" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55]" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-medium text-gray-700 mb-1">Operating Scope</label>
+                         <select className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55] bg-white">
+                            <option>National & International</option>
+                            <option>National Only</option>
+                            <option>Local Region</option>
+                         </select>
+                      </div>
+                      <div>
+                         <label className="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
+                         <input type="email" defaultValue="hello@foodwise.org" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55]" />
+                      </div>
+                      <div>
+                         <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                         <input type="tel" defaultValue="+1 (555) 123-4567" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#007A55] focus:ring-1 focus:ring-[#007A55]" />
+                      </div>
+                   </div>
+                   <button type="submit" className="mt-4 bg-gray-900 text-white px-6 py-3 rounded-xl font-medium hover:bg-gray-800 transition-colors shadow-sm flex items-center justify-center">
+                      Save Changes
+                   </button>
+                </form>
+             </div>
+             
+          </div>
         </div>
       </div>
     </section>
   );
 };
 
-const Solution = () => (
-  <section id="solution" className="py-24 bg-[#007A55] text-white relative overflow-hidden">
-    <div className="absolute -left-40 top-0 w-96 h-96 bg-white opacity-5 rounded-full blur-3xl"></div>
-    <div className="absolute right-0 bottom-0 w-[500px] h-[500px] bg-black opacity-10 rounded-full blur-3xl -mb-40 -mr-40"></div>
-    
+const CorporateDeals = () => (
+  <section id="corporate-deals" className="py-24 bg-gray-900 text-white border-b border-gray-800 relative overflow-hidden">
+    {/* Subtle Background Image for Corporate Section */}
+    <div className="absolute inset-0 opacity-10 pointer-events-none">
+      <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32d7?q=80&w=1932&auto=format&fit=crop" alt="Corporate POS System" className="w-full h-full object-cover" />
+    </div>
+    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-gray-900"></div>
+
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <div className="inline-block bg-white/20 backdrop-blur-sm text-white font-medium px-4 py-1.5 rounded-full text-sm mb-6">
-            Our Solution
-          </div>
-          <h2 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-            A Simple Food Rescue App
-          </h2>
-          <p className="text-xl text-green-100 font-medium mb-4">
-            Making Donations as Easy as Ordering Online
-          </p>
-          <p className="text-lg text-green-50 mb-10 opacity-90 leading-relaxed">
-            Like Swiggy, But for Donations — We replaced old phone chains with a real-time app so food reaches people before it gets cold.
-          </p>
-          
-          <div className="space-y-6">
-            {[
-              { title: "Fast Listing", desc: "Restaurants post what they have in under a minute (e.g., '30 plates, ready by 10 PM')." },
-              { title: "Instant Alert", desc: "Verified shelters and nearby volunteers get an immediate notification on their phones." },
-              { title: "One-Tap Claim", desc: "Someone claims it right away, so nobody has to waste time making endless phone calls." }
-            ].map((feature, idx) => (
-              <div key={idx} className="flex gap-4">
-                <div className="flex-shrink-0 mt-1 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h4 className="text-lg font-bold">{feature.title}</h4>
-                  <p className="text-green-100 mt-1">{feature.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="text-center mb-16">
+        <div className="inline-block bg-emerald-900/50 text-emerald-400 font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-800">
+          Automated B2B Monetization
         </div>
-        
-        <div className="hidden lg:block relative">
-          <div className="bg-white p-4 rounded-[2.5rem] shadow-2xl rotate-3 mx-auto w-[320px]">
-            <div className="bg-gray-50 rounded-[1.5rem] border border-gray-100 h-[600px] relative overflow-hidden flex flex-col">
-              <div className="bg-[#007A55] text-white p-6 pb-8 rounded-b-3xl">
-                <h3 className="font-bold text-xl">New Donation Available!</h3>
-                <p className="opacity-90 text-sm mt-1">Saffron Restaurant • 1.2 km away</p>
-              </div>
-              <div className="p-6 -mt-4 flex-1">
-                <div className="bg-white rounded-2xl shadow-md p-4 mb-4 border border-gray-100">
-                  <p className="font-semibold text-gray-900">30x Fresh Veg Meals</p>
-                  <p className="text-sm text-gray-500 mt-1">Ready for pickup now</p>
-                </div>
-                <div className="h-40 bg-gray-100 rounded-2xl mb-4 animate-pulse"></div>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="bg-[#007A55] text-white text-center py-4 rounded-xl font-bold shadow-lg">
-                    Claim Food Now
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Zero-Touch Corporate Partnerships</h2>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          Big brands and enterprise franchises plug into our API once. FoodWise automatically routes surplus, handles the sales, and splits the revenue instantly without human intervention.
+        </p>
+      </div>
+
+      {/* Simulated Big Brand Partners */}
+      <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 mb-20 opacity-50 grayscale">
+        <div className="flex items-center gap-2 text-2xl font-bold font-serif"><Utensils className="w-8 h-8"/> GlobalBurger</div>
+        <div className="flex items-center gap-2 text-2xl font-bold"><Leaf className="w-8 h-8"/> GreenBowl Co.</div>
+        <div className="flex items-center gap-2 text-2xl font-bold italic"><Package className="w-8 h-8"/> FreshMart</div>
+        <div className="flex items-center gap-2 text-2xl font-bold"><Building2 className="w-8 h-8"/> CityBites Intl.</div>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-8">
+        <div className="bg-gray-800 p-8 rounded-3xl border border-gray-700 hover:border-emerald-500/50 transition-colors">
+           <div className="w-14 h-14 bg-gray-700 rounded-2xl flex items-center justify-center mb-6">
+              <Zap className="w-7 h-7 text-emerald-400" />
+           </div>
+           <h3 className="text-xl font-bold mb-3">API Auto-Listing</h3>
+           <p className="text-gray-400 mb-6">POS systems automatically detect end-of-day surplus and generate discounted listings on FoodWise instantly.</p>
+           <div className="pt-6 border-t border-gray-700">
+              <p className="text-sm text-gray-500 mb-1">Platform Profit Mode</p>
+              <p className="font-bold text-emerald-400">$99/mo SaaS Fee per Location</p>
+           </div>
         </div>
+
+        <div className="bg-gray-800 p-8 rounded-3xl border border-gray-700 hover:border-emerald-500/50 transition-colors">
+           <div className="w-14 h-14 bg-gray-700 rounded-2xl flex items-center justify-center mb-6">
+              <CircleDollarSign className="w-7 h-7 text-emerald-400" />
+           </div>
+           <h3 className="text-xl font-bold mb-3">Smart Revenue Split</h3>
+           <p className="text-gray-400 mb-6">When a surplus meal is sold, our smart contracts instantly route the revenue to the brand and our platform fee.</p>
+           <div className="pt-6 border-t border-gray-700">
+              <p className="text-sm text-gray-500 mb-1">Platform Profit Mode</p>
+              <p className="font-bold text-emerald-400">15% Commission per Sale</p>
+           </div>
+        </div>
+
+        <div className="bg-gray-800 p-8 rounded-3xl border border-gray-700 hover:border-emerald-500/50 transition-colors">
+           <div className="w-14 h-14 bg-gray-700 rounded-2xl flex items-center justify-center mb-6">
+              <BarChart3 className="w-7 h-7 text-emerald-400" />
+           </div>
+           <h3 className="text-xl font-bold mb-3">ESG Data Reporting</h3>
+           <p className="text-gray-400 mb-6">Enterprises receive automated, compliant ESG impact reports detailing exact carbon and water savings from their diverted food.</p>
+           <div className="pt-6 border-t border-gray-700">
+              <p className="text-sm text-gray-500 mb-1">Platform Profit Mode</p>
+              <p className="font-bold text-emerald-400">Enterprise Data Licensing</p>
+           </div>
+        </div>
+      </div>
+      
+      <div className="mt-16 text-center">
+        <button className="bg-emerald-500 hover:bg-emerald-400 text-gray-900 font-bold px-8 py-4 rounded-full transition-colors flex items-center justify-center gap-2 mx-auto shadow-lg shadow-emerald-900/50 hover:shadow-xl hover:-translate-y-0.5">
+          <Briefcase className="w-5 h-5" /> Generate Automated Partner API Key
+        </button>
       </div>
     </div>
   </section>
 );
 
-const HowItWorks = () => {
-  const [activeStep, setActiveStep] = useState(0);
-  
-  const steps = [
-    {
-      id: "Step 1",
-      title: "Post Surplus",
-      desc: "Kitchen staff open the app and type in what food is available and when to pick it up.",
-      icon: <Utensils className="w-6 h-6" />
-    },
-    {
-      id: "Step 2",
-      title: "Quick Alert",
-      desc: "The app automatically pings NGOs and delivery helpers within a 5 km radius.",
-      icon: <BellRing className="w-6 h-6" />
-    },
-    {
-      id: "Step 3",
-      title: "Claim & Assign",
-      desc: "A nearby shelter claims the food batch and assigns a volunteer to pick it up.",
-      icon: <Users className="w-6 h-6" />
-    },
-    {
-      id: "Step 4",
-      title: "Drop Off",
-      desc: "Fresh meals arrive safely at the shelter right on time for dinner.",
-      icon: <HeartHandshake className="w-6 h-6" />
-    }
-  ];
-
-  return (
-    <section id="how-it-works" className="py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">How It Works Step-by-Step</h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">From kitchen to plate in four simple actions.</p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-12 items-start max-w-5xl mx-auto">
-          <div className="w-full lg:w-1/2 space-y-4">
-            {steps.map((step, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveStep(idx)}
-                className={`w-full text-left p-6 rounded-2xl transition-all duration-300 border-2 ${
-                  activeStep === idx 
-                    ? "border-[#007A55] bg-emerald-50 shadow-md" 
-                    : "border-transparent bg-gray-50 hover:bg-gray-100"
-                }`}
-              >
-                <div className="flex items-center gap-4">
-                  <div className={`p-3 rounded-full ${
-                    activeStep === idx ? "bg-[#007A55] text-white" : "bg-gray-200 text-gray-500"
-                  }`}>
-                    {step.icon}
-                  </div>
-                  <div>
-                    <h4 className={`font-bold text-lg ${activeStep === idx ? "text-[#007A55]" : "text-gray-900"}`}>
-                      {step.id}: {step.title}
-                    </h4>
-                  </div>
-                </div>
-              </button>
-            ))}
-          </div>
-
-          <div className="w-full lg:w-1/2">
-            <div className="bg-gray-900 rounded-3xl p-8 text-white min-h-[400px] flex flex-col justify-center relative overflow-hidden shadow-2xl">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-[#007A55] rounded-full blur-[80px] opacity-40"></div>
-              
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeStep}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
-                  className="relative z-10"
-                >
-                  <div className="text-[#007A55] font-bold text-2xl mb-2">{steps[activeStep].id}</div>
-                  <h3 className="text-4xl font-bold mb-6 text-white">{steps[activeStep].title}</h3>
-                  <p className="text-xl text-gray-300 leading-relaxed">
-                    {steps[activeStep].desc}
-                  </p>
-                  
-                  {/* Abstract Illustration representation based on step */}
-                  <div className="mt-12 flex justify-center opacity-80">
-                    {activeStep === 0 && (
-                      <div className="flex gap-4">
-                        <div className="w-16 h-16 bg-white/10 rounded-xl"></div>
-                        <div className="w-16 h-16 bg-[#007A55]/40 rounded-xl"></div>
-                        <div className="w-16 h-16 bg-white/10 rounded-xl"></div>
-                      </div>
-                    )}
-                    {activeStep === 1 && (
-                      <div className="relative w-32 h-32 flex items-center justify-center">
-                        <div className="absolute inset-0 bg-[#007A55]/20 rounded-full animate-ping"></div>
-                        <div className="w-12 h-12 bg-[#007A55] rounded-full z-10"></div>
-                      </div>
-                    )}
-                    {activeStep === 2 && (
-                      <div className="flex items-center gap-6">
-                        <div className="w-12 h-12 rounded-full bg-white/20"></div>
-                        <div className="h-1 w-16 bg-[#007A55] rounded-full"></div>
-                        <div className="w-16 h-16 rounded-full bg-[#007A55]/80 flex items-center justify-center"><CheckCircle className="text-white" /></div>
-                      </div>
-                    )}
-                    {activeStep === 3 && (
-                      <div className="flex gap-2 items-end h-24">
-                        <div className="w-8 h-12 bg-white/10 rounded-t-lg"></div>
-                        <div className="w-8 h-16 bg-white/20 rounded-t-lg"></div>
-                        <div className="w-8 h-24 bg-[#007A55] rounded-t-lg"></div>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const Goals = () => (
-  <section id="impact" className="py-20 bg-emerald-50 border-y border-emerald-100">
+const OrderFood = () => (
+  <section id="order" className="py-24 bg-white border-b border-gray-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What We Want to Achieve</h2>
+        <div className="inline-block bg-emerald-100 text-[#007A55] font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-200">
+          National & International Delivery Available
+        </div>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Order Fresh Surplus Food</h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Get high-quality food delivered right to your door. Enter your location to see available restaurants in your specific area globally.</p>
       </div>
-      
-      <div className="grid md:grid-cols-3 gap-8">
+
+      <div className="max-w-3xl mx-auto mb-12">
+        <div className="bg-white p-2 rounded-full border border-gray-200 shadow-sm flex items-center">
+           <div className="pl-4 pr-2 text-gray-400"><MapPin className="w-5 h-5"/></div>
+           <input type="text" placeholder="Enter delivery address (e.g., New York, London, Mumbai)..." className="flex-1 py-3 outline-none text-gray-700" />
+           <button className="bg-gray-900 text-white px-6 py-3 rounded-full font-medium hover:bg-gray-800 transition">Search Area</button>
+        </div>
+      </div>
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { metric: "10x", label: "Faster", desc: "Than making random phone calls to shelters." },
-          { metric: "Zero", label: "Wasted", desc: "Edible meals remaining in our pipeline." },
-          { metric: "100%", label: "Tracked", desc: "Clear tracking from the kitchen straight to the plate." }
-        ].map((goal, idx) => (
-          <motion.div 
-            key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className="bg-white p-10 rounded-[2rem] shadow-sm text-center border border-gray-100"
-          >
-            <div className="text-6xl font-extrabold text-[#007A55] mb-4">{goal.metric}</div>
-            <h4 className="text-2xl font-bold text-gray-900 mb-2">{goal.label}</h4>
-            <p className="text-gray-600 font-medium">{goal.desc}</p>
-          </motion.div>
+          { name: "Gourmet Pasta Assortment", restaurant: "Luigi's Italiano", price: "$12.00", original: "$24.00", imgUrl: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?q=80&w=2070&auto=format&fit=crop" },
+          { name: "Fresh Bakery Bundle", restaurant: "Morning Crusts", price: "$5.50", original: "$15.00", imgUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop" },
+          { name: "Vegan Salad Bowls", restaurant: "Green Leaf", price: "$8.00", original: "$16.00", imgUrl: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop" },
+          { name: "Assorted Sushi Platter", restaurant: "Tokyo Bites", price: "$15.00", original: "$35.00", imgUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=2070&auto=format&fit=crop" },
+        ].map((item, i) => (
+          <div key={i} className="bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow flex flex-col">
+            <div className={`h-48 bg-gray-200 relative`}>
+               <img src={item.imgUrl} alt={item.name} className="absolute inset-0 w-full h-full object-cover" />
+               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-xs font-bold text-gray-900 shadow-sm">-50%</div>
+            </div>
+            <div className="p-5">
+              <h3 className="font-bold text-gray-900 mb-1">{item.name}</h3>
+              <p className="text-sm text-gray-500 mb-4">{item.restaurant}</p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-[#007A55]">{item.price}</span>
+                  <span className="text-xs text-gray-400 line-through ml-2">{item.original}</span>
+                </div>
+                <button className="bg-gray-100 hover:bg-gray-200 text-gray-900 p-2 rounded-full transition-colors">
+                  <ShoppingBag className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
         ))}
       </div>
     </div>
   </section>
 );
 
-const Benefits = () => (
-  <section className="py-24 bg-white">
+const DonateFood = () => (
+  <section id="donate" className="py-24 bg-emerald-50 border-b border-emerald-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Why Restaurants and Shelters Will Use It</h2>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-        <div className="bg-gray-50 p-10 rounded-3xl border border-gray-100 flex flex-col justify-center">
-          <ShieldCheck className="w-12 h-12 text-[#007A55] mb-6" />
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Completely Worry-Free</h3>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Clear digital records keep everything safe and accountable, giving restaurants peace of mind whenever they want to share surplus food.
-          </p>
-        </div>
-        <div className="bg-gray-50 p-10 rounded-3xl border border-gray-100 flex flex-col justify-center">
-          <TrendingUp className="w-12 h-12 text-[#007A55] mb-6" />
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">Simple Impact Tracking</h3>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Our dashboard automatically counts how many meals were saved, making it super easy for businesses to show their good work.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-const AboutWaste = () => (
-  <section id="about" className="py-20 bg-emerald-900 text-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <div className="inline-block bg-emerald-800 text-emerald-200 font-medium px-4 py-1.5 rounded-full text-sm mb-6">
-            About Food Waste
+          <div className="w-16 h-16 bg-[#007A55] text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <HeartHandshake className="w-8 h-8" />
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight">The True Cost of Wasted Meals</h2>
-          <p className="text-emerald-100 text-lg mb-6 leading-relaxed">
-            Every year, billions of tons of edible food are thrown away globally, contributing to massive greenhouse gas emissions and wasted resources. Meanwhile, millions go hungry. 
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Donate Free Food Globally</h2>
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            Whether you are a large restaurant chain or a local community center, our international network allows you to donate surplus food instantly. We handle the logistics so it reaches those in need, anywhere in the world.
           </p>
-          <ul className="space-y-4">
-            {[
-              "1/3 of all food produced globally goes to waste.",
-              "Wasted food accounts for 8% of global greenhouse emissions.",
-              "Saving just 25% of wasted food could feed all hungry people."
-            ].map((fact, idx) => (
-              <li key={idx} className="flex items-start gap-3">
-                <Leaf className="w-6 h-6 text-emerald-400 shrink-0 mt-0.5" />
-                <span className="text-emerald-50">{fact}</span>
-              </li>
-            ))}
-          </ul>
+          <img 
+            src="https://images.unsplash.com/photo-1593113630400-ea4288922497?q=80&w=2070&auto=format&fit=crop" 
+            alt="Donation Logistics" 
+            className="rounded-2xl shadow-lg mt-8 object-cover h-64 w-full"
+          />
         </div>
-        <div className="relative">
-          <div className="aspect-square bg-emerald-800 rounded-3xl overflow-hidden relative border-4 border-emerald-700 shadow-2xl">
-            <div className="absolute inset-0 bg-black/20 z-10"></div>
-            <div className="w-full h-full object-cover bg-emerald-100 flex items-center justify-center p-8">
-               <div className="text-center">
-                  <div className="w-24 h-24 bg-emerald-200 rounded-full flex items-center justify-center mx-auto mb-4">
-                     <Package className="w-12 h-12 text-emerald-700" />
-                  </div>
-                  <h3 className="text-emerald-900 font-bold text-2xl">Stop The Waste</h3>
-               </div>
-            </div>
-          </div>
+        <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+           <form className="space-y-4" onSubmit={e => e.preventDefault()}>
+              <div>
+                 <label className="block text-sm font-medium text-gray-700 mb-1">What are you donating?</label>
+                 <input type="text" placeholder="e.g., 50 Loaves of Bread" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#007A55] outline-none" />
+              </div>
+              <button className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-bold py-4 rounded-xl transition-colors shadow-md mt-4">
+                 Post Donation Now
+              </button>
+           </form>
         </div>
       </div>
     </div>
   </section>
 );
 
-const DealsAndSubscription = () => (
-  <section id="deals" className="py-24 bg-gray-50 border-y border-gray-100">
+const LiveTracking = () => (
+  <section id="track" className="py-24 bg-gray-900 text-white overflow-hidden relative">
+    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-[#007A55]/10 rounded-full blur-[120px] pointer-events-none"></div>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Track Every Detail Live</h2>
+        <p className="text-lg text-gray-400 max-w-2xl mx-auto">Watch your order or donation move from the kitchen to the destination in real-time on our interactive map.</p>
+      </div>
+      <div className="relative bg-gray-800 p-2 rounded-3xl border border-gray-700 shadow-2xl">
+        <img 
+          src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=2074&auto=format&fit=crop" 
+          alt="Live Delivery Map Tracking" 
+          className="rounded-2xl w-full h-[500px] object-cover opacity-80"
+        />
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+           <div className="bg-white text-gray-900 px-6 py-4 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce">
+              <Truck className="w-8 h-8 text-[#007A55]" />
+              <div>
+                 <p className="font-bold text-lg">En Route to Destination</p>
+                 <p className="text-sm text-gray-500">Arriving in 15 mins</p>
+              </div>
+           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+
+
+const FoodWasteEducation = () => (
+  <section id="education" className="py-24 bg-white border-b border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <div className="inline-block bg-orange-100 text-orange-600 font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-orange-200">
+            The Global Crisis
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Why Food Waste Matters</h2>
+          <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            Roughly one-third of the food produced in the world for human consumption every year gets lost or wasted. That's about 1.3 billion tons. Meanwhile, millions go hungry. FoodWise bridges this gap.
+          </p>
+          <div className="space-y-6">
+             <div className="flex items-start gap-4">
+                <div className="bg-red-50 p-3 rounded-xl"><AlertTriangle className="w-6 h-6 text-red-500" /></div>
+                <div>
+                   <h4 className="font-bold text-gray-900 text-lg">Environmental Impact</h4>
+                   <p className="text-gray-600">If food waste were a country, it would be the third largest emitting country in the world.</p>
+                </div>
+             </div>
+             <div className="flex items-start gap-4">
+                <div className="bg-blue-50 p-3 rounded-xl"><Globe2 className="w-6 h-6 text-blue-500" /></div>
+                <div>
+                   <h4 className="font-bold text-gray-900 text-lg">Economic Loss</h4>
+                   <p className="text-gray-600">Food waste costs the global economy roughly $940 billion every year.</p>
+                </div>
+             </div>
+          </div>
+        </div>
+        <div className="relative h-full w-full min-h-[400px]">
+           <img 
+             src="https://images.unsplash.com/photo-1605640840605-14ac1855827b?q=80&w=2070&auto=format&fit=crop" 
+             alt="Food Waste Impact" 
+             className="absolute inset-0 w-full h-full object-cover rounded-3xl shadow-2xl"
+           />
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+const SubscriptionPayment = () => (
+  <section id="pricing" className="py-24 bg-gray-50 border-b border-gray-100">
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
-        <div className="inline-block bg-emerald-100 text-[#007A55] font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-200">
-          Save Food With Us
-        </div>
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Today&apos;s Waste-less Deals & Subscriptions</h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Access perfectly good surplus food at a fraction of the cost, or subscribe for regular rescue boxes. 100% secure payments.</p>
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Subscription & Payments</h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">Automate your impact. Subscribe to monthly meal donations or unlock premium features for restaurants.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-8 mb-12">
-        {/* Deal 1 */}
-        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow relative">
-          <div className="h-48 bg-orange-100 relative">
-             <div className="absolute top-4 right-4 bg-red-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md">-30%</div>
-             <div className="w-full h-full flex items-center justify-center">
-               <Utensils className="w-16 h-16 text-orange-300" />
-             </div>
-          </div>
-          <div className="p-6">
-            <h3 className="font-bold text-xl text-gray-900 mb-2">Leftover Lunch Special</h3>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl font-bold text-[#007A55]">$13.00</span>
-              <span className="text-gray-400 line-through text-sm">$18.50</span>
-            </div>
-            <button className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-medium py-3 rounded-xl transition-colors shadow-md">
-              Claim Now
-            </button>
-          </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {/* User Sub */}
+        <div className="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm hover:shadow-xl transition-shadow relative">
+           <h3 className="text-2xl font-bold text-gray-900 mb-2">Supporter</h3>
+           <p className="text-gray-500 mb-6">Feed a family every month.</p>
+           <div className="mb-6"><span className="text-4xl font-extrabold text-gray-900">$15</span><span className="text-gray-500">/mo</span></div>
+           <ul className="space-y-4 mb-8">
+              <li className="flex items-center gap-3 text-gray-700"><CheckCircle className="w-5 h-5 text-[#007A55]" /> 10 Meals Donated Monthly</li>
+              <li className="flex items-center gap-3 text-gray-700"><CheckCircle className="w-5 h-5 text-[#007A55]" /> Monthly Impact Report</li>
+              <li className="flex items-center gap-3 text-gray-700"><CheckCircle className="w-5 h-5 text-[#007A55]" /> Supporter Badge</li>
+           </ul>
+           <button className="w-full bg-emerald-50 text-[#007A55] font-bold py-3 rounded-xl hover:bg-emerald-100 transition-colors border border-emerald-200 flex items-center justify-center gap-2">
+             <CreditCardIcon className="w-5 h-5"/> Subscribe via Stripe
+           </button>
         </div>
 
-        {/* Deal 2 */}
-        <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-shadow relative">
-          <div className="h-48 bg-emerald-100 relative">
-             <div className="absolute top-4 right-4 bg-red-500 text-white font-bold px-3 py-1 rounded-full text-sm shadow-md">-20%</div>
-             <div className="w-full h-full flex items-center justify-center">
-               <Leaf className="w-16 h-16 text-emerald-300" />
-             </div>
-          </div>
-          <div className="p-6">
-            <h3 className="font-bold text-xl text-gray-900 mb-2">Daily Produce Box</h3>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-2xl font-bold text-[#007A55]">$15.00</span>
-              <span className="text-gray-400 line-through text-sm">$18.75</span>
-            </div>
-            <button className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-medium py-3 rounded-xl transition-colors shadow-md">
-              Claim Now
-            </button>
-          </div>
+        {/* Premium Partner */}
+        <div className="bg-[#007A55] p-8 rounded-3xl border border-[#006344] shadow-xl relative transform md:-translate-y-4 text-white">
+           <div className="absolute top-0 right-0 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-3xl uppercase tracking-wider">Most Popular</div>
+           <h3 className="text-2xl font-bold mb-2">Partner Pro</h3>
+           <p className="text-emerald-100 mb-6">For high-volume restaurants.</p>
+           <div className="mb-6"><span className="text-4xl font-extrabold">$49</span><span className="text-emerald-200">/mo</span></div>
+           <ul className="space-y-4 mb-8">
+              <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-emerald-300" /> Unlimited Listings</li>
+              <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-emerald-300" /> Automated API Sync</li>
+              <li className="flex items-center gap-3"><CheckCircle className="w-5 h-5 text-emerald-300" /> Zero Transaction Fees</li>
+           </ul>
+           <button className="w-full bg-white text-[#007A55] font-bold py-3 rounded-xl hover:bg-gray-50 transition-colors shadow-md">
+             Start 14-Day Free Trial
+           </button>
         </div>
 
-        {/* Subscription */}
-        <div className="bg-[#007A55] rounded-3xl overflow-hidden shadow-lg border border-emerald-700 text-white relative">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white rounded-full blur-3xl opacity-10 -mr-10 -mt-10"></div>
-          <div className="p-8 flex flex-col h-full relative z-10">
-            <div className="bg-emerald-600 w-12 h-12 rounded-xl flex items-center justify-center mb-6 shadow-inner">
-              <Calendar className="w-6 h-6 text-white" />
-            </div>
-            <h3 className="font-bold text-2xl mb-2">Weekly Rescue Pro</h3>
-            <p className="text-emerald-100 mb-6 text-sm">Get a guaranteed surplus box every week and maximize your impact.</p>
-            <div className="flex items-baseline gap-1 mb-8">
-              <span className="text-4xl font-extrabold">$49</span>
-              <span className="text-emerald-200 font-medium">/mo</span>
-            </div>
-            <button className="mt-auto w-full bg-white hover:bg-emerald-50 text-[#007A55] font-bold py-3 rounded-xl transition-colors shadow-md">
-              Subscribe Now
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Security Banner */}
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl p-6 border border-gray-200 shadow-sm flex flex-col sm:flex-row items-center gap-6 justify-center">
-        <div className="flex items-center gap-3 text-gray-700">
-          <Shield className="w-6 h-6 text-[#007A55]" />
-          <span className="font-medium">100% Secure Checkout</span>
-        </div>
-        <div className="hidden sm:block w-px h-8 bg-gray-200"></div>
-        <div className="flex items-center gap-3 text-gray-700">
-          <Lock className="w-6 h-6 text-[#007A55]" />
-          <span className="font-medium">Bank-Grade Encryption</span>
-        </div>
-        <div className="hidden sm:block w-px h-8 bg-gray-200"></div>
-        <div className="flex items-center gap-3 text-gray-700">
-          <CreditCard className="w-6 h-6 text-[#007A55]" />
-          <span className="font-medium">Multiple Payment Options</span>
+        {/* Enterprise */}
+        <div className="bg-gray-900 p-8 rounded-3xl border border-gray-800 shadow-sm hover:shadow-xl transition-shadow text-white">
+           <h3 className="text-2xl font-bold mb-2">Enterprise</h3>
+           <p className="text-gray-400 mb-6">For global food franchises.</p>
+           <div className="mb-6"><span className="text-4xl font-extrabold">Custom</span></div>
+           <ul className="space-y-4 mb-8">
+              <li className="flex items-center gap-3 text-gray-300"><CheckCircle className="w-5 h-5 text-emerald-500" /> Multi-location Management</li>
+              <li className="flex items-center gap-3 text-gray-300"><CheckCircle className="w-5 h-5 text-emerald-500" /> ESG Compliance Reporting</li>
+              <li className="flex items-center gap-3 text-gray-300"><CheckCircle className="w-5 h-5 text-emerald-500" /> Dedicated Account Manager</li>
+           </ul>
+           <button className="w-full bg-gray-800 text-white font-bold py-3 rounded-xl hover:bg-gray-700 transition-colors border border-gray-700">
+             Contact Sales
+           </button>
         </div>
       </div>
     </div>
   </section>
 );
 
-const PilotForm = () => {
-  const [role, setRole] = useState("Restaurant");
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
-  };
-
-  return (
-    <section id="pilot" className="py-24 bg-gray-900 text-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[#007A55] opacity-10"></div>
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">Ready for Our First Local Pilot</h2>
-            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-              Let&apos;s stop food waste right in our neighborhoods. We are excited to test our MVP in local dining areas, team up with restaurants, and onboard our very first shelters.
-            </p>
-            <p className="text-lg font-medium text-[#007A55] bg-[#007A55]/20 inline-block px-4 py-2 rounded-lg">
-              Thank you so much! We&apos;d love to hear your questions and thoughts.
-            </p>
-          </div>
-          
-          <div className="bg-white text-gray-900 p-8 rounded-3xl shadow-2xl">
-            <h3 className="text-2xl font-bold mb-6 text-center">Get Involved / Join Pilot</h3>
-            
-            {isSubmitted ? (
-              <div className="text-center py-12">
-                <div className="w-16 h-16 bg-emerald-100 text-[#007A55] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8" />
-                </div>
-                <h4 className="text-xl font-bold mb-2">Thank You!</h4>
-                <p className="text-gray-600">We&apos;ve added you to our pilot list. We will be in touch shortly.</p>
+const SecurityTrust = () => (
+  <section id="security" className="py-24 bg-white border-b border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Enterprise-Grade Security & Trust</h2>
+           <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+             We handle sensitive partner APIs, donor payments, and user locations with the highest level of security. FoodWise ensures your data and transactions are completely protected.
+           </p>
+           <div className="grid sm:grid-cols-2 gap-6">
+              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                 <Lock className="w-8 h-8 text-[#007A55] mb-3" />
+                 <h4 className="font-bold text-gray-900 mb-1">End-to-End Encryption</h4>
+                 <p className="text-sm text-gray-500">All data is encrypted in transit and at rest using AES-256 standards.</p>
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">I am signing up as a:</label>
-                  <div className="grid grid-cols-3 gap-3">
-                    {["Restaurant", "NGO", "Volunteer"].map(r => (
-                      <button
-                        key={r}
-                        type="button"
-                        onClick={() => setRole(r)}
-                        className={`py-2 px-3 text-sm font-medium rounded-lg border transition-colors ${
-                          role === r 
-                            ? "bg-[#007A55] text-white border-[#007A55]" 
-                            : "bg-white text-gray-600 border-gray-200 hover:border-[#007A55]"
-                        }`}
-                      >
-                        {r}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name / Organization</label>
-                  <input type="text" id="name" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#007A55] focus:border-transparent outline-none transition-all" placeholder="Enter your name" />
-                </div>
-                
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                  <input type="email" id="email" required className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#007A55] focus:border-transparent outline-none transition-all" placeholder="you@example.com" />
-                </div>
-                
-                <button type="submit" className="w-full bg-[#007A55] hover:bg-[#006344] text-white font-bold py-4 rounded-xl transition-colors flex items-center justify-center gap-2 mt-4">
-                  <span>Join the Pilot</span>
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </form>
-            )}
-          </div>
+              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                 <ShieldAlert className="w-8 h-8 text-[#007A55] mb-3" />
+                 <h4 className="font-bold text-gray-900 mb-1">PCI Compliant</h4>
+                 <p className="text-sm text-gray-500">Secure subscription and payment processing powered by trusted providers.</p>
+              </div>
+              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                 <BadgeCheck className="w-8 h-8 text-[#007A55] mb-3" />
+                 <h4 className="font-bold text-gray-900 mb-1">Verified Partners</h4>
+                 <p className="text-sm text-gray-500">Every NGO and restaurant on our platform passes strict verification checks.</p>
+              </div>
+              <div className="bg-gray-50 p-5 rounded-2xl border border-gray-100">
+                 <Shield className="w-8 h-8 text-[#007A55] mb-3" />
+                 <h4 className="font-bold text-gray-900 mb-1">Food Safety Standard</h4>
+                 <p className="text-sm text-gray-500">Compliance with local and international food health & safety regulations.</p>
+              </div>
+           </div>
+        </div>
+        <div className="relative">
+           <div className="absolute inset-0 bg-[#007A55] rounded-3xl rotate-3 scale-105 opacity-10"></div>
+           <img 
+             src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1470&auto=format&fit=crop" 
+             alt="Security and Trust" 
+             className="relative rounded-3xl shadow-2xl object-cover h-[500px] w-full"
+           />
+           <div className="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-xl flex items-center gap-4">
+              <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                 <Lock className="w-6 h-6 text-green-600" />
+              </div>
+              <div>
+                 <p className="font-bold text-gray-900">100% Secure</p>
+                 <p className="text-sm text-gray-500">Data Protection</p>
+              </div>
+           </div>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
+
+const AboutOrganization = () => (
+  <section id="impact" className="py-24 bg-white border-b border-gray-100">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="order-2 lg:order-1 relative space-y-6">
+           <img 
+              src="https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?q=80&w=2070&auto=format&fit=crop" 
+              alt="Community Impact" 
+              className="rounded-3xl shadow-xl w-full h-64 object-cover"
+           />
+           <div className="grid grid-cols-2 gap-4">
+              <div className="bg-emerald-50 p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <span className="text-4xl font-extrabold text-[#007A55] mb-2">50+</span>
+                <span className="text-gray-600 font-medium text-sm">Countries Served</span>
+              </div>
+              <div className="bg-orange-50 p-6 rounded-3xl flex flex-col items-center justify-center text-center">
+                <span className="text-4xl font-extrabold text-orange-500 mb-2">2M+</span>
+                <span className="text-gray-600 font-medium text-sm">Meals Rescued</span>
+              </div>
+           </div>
+        </div>
+        <div className="order-1 lg:order-2">
+          <div className="inline-block bg-emerald-100 text-[#007A55] font-medium px-4 py-1.5 rounded-full text-sm mb-6 border border-emerald-200">
+            Our Organization
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Built on a Mission to End Global Hunger</h2>
+          <p className="text-lg text-gray-600 mb-6 leading-relaxed">
+            FoodWise started as a local initiative and quickly grew into an international platform bridging the gap between excess and need. Our team of engineers, logistics experts, and community organizers work tirelessly to ensure no edible food goes to waste.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const Footer = () => (
-  <footer className="bg-white py-8 border-t border-gray-100">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-4">
-      <div className="flex items-center gap-2">
-        <Leaf className="w-5 h-5 text-[#007A55]" />
-        <span className="font-bold text-gray-900">WasteWise</span>
+  <footer className="bg-gray-900 text-gray-300 pt-20 pb-10 border-t border-gray-800">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        
+        {/* Brand & Bio */}
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo(0,0)}>
+            <div className="bg-[#007A55] p-2 rounded-lg">
+              <Leaf className="w-6 h-6 text-white" />
+            </div>
+            <span className="font-bold text-2xl text-white tracking-tight">FoodWise</span>
+          </div>
+          <p className="text-gray-400 text-sm leading-relaxed">
+            Connecting surplus food with those who need it most. Operating globally to ensure zero waste and zero hunger.
+          </p>
+          <div className="flex items-center gap-4 pt-2">
+            <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#007A55] hover:text-white transition-colors shadow-sm">
+              <Twitter className="w-4 h-4" />
+            </a>
+            <a href="#" className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#007A55] hover:text-white transition-colors shadow-sm">
+              <Facebook className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        {/* Quick Links */}
+        <div>
+          <h4 className="text-white font-bold text-lg mb-6">Platform</h4>
+          <ul className="space-y-4 text-sm">
+            <li><a href="#partner-dashboard" className="hover:text-emerald-400 transition-colors">Partner Hub</a></li>
+            <li><a href="#order" className="hover:text-emerald-400 transition-colors">Order Food</a></li>
+            <li><a href="#donate" className="hover:text-emerald-400 transition-colors">Donate Surplus</a></li>
+            <li><a href="#track" className="hover:text-emerald-400 transition-colors">Live Tracking</a></li>
+          </ul>
+        </div>
+
+        {/* Contact Us */}
+        <div>
+          <h4 className="text-white font-bold text-lg mb-6">Contact Us</h4>
+          <ul className="space-y-4 text-sm">
+            <li className="flex items-start gap-3 group cursor-pointer">
+              <MapPin className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5 group-hover:text-emerald-400 transition-colors" />
+              <span className="group-hover:text-white transition-colors">123 Sustainability Way,<br/>Eco District, NY 10001,<br/>Global HQ</span>
+            </li>
+            <li className="flex items-center gap-3 group cursor-pointer">
+              <Phone className="w-5 h-5 text-emerald-500 shrink-0 group-hover:text-emerald-400 transition-colors" />
+              <span className="group-hover:text-white transition-colors">+1 (555) 123-4567</span>
+            </li>
+            <li className="flex items-center gap-3 group cursor-pointer">
+              <Mail className="w-5 h-5 text-emerald-500 shrink-0 group-hover:text-emerald-400 transition-colors" />
+              <span className="group-hover:text-white transition-colors">hello@foodwise.org</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Newsletter */}
+        <div>
+          <h4 className="text-white font-bold text-lg mb-6">Stay Updated</h4>
+          <p className="text-gray-400 text-sm mb-4">Subscribe to our newsletter for the latest impact reports.</p>
+          <form className="flex flex-col gap-3" onSubmit={(e) => e.preventDefault()}>
+            <input 
+              type="email" 
+              placeholder="Your email address" 
+              className="bg-gray-800 border border-gray-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm w-full transition-all"
+            />
+            <button className="bg-[#007A55] hover:bg-[#006344] text-white font-medium py-3 rounded-xl transition-colors w-full text-sm shadow-md">
+              Subscribe
+            </button>
+          </form>
+        </div>
+
       </div>
-      <p className="text-gray-500 text-sm">© {new Date().getFullYear()} WasteWise. Round 1 Submission.</p>
+
+      <div className="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+        <p>© {new Date().getFullYear()} FoodWise (National & International). All rights reserved.</p>
+        <div className="flex items-center gap-6">
+          <a href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
+          <a href="#" className="hover:text-gray-300 transition-colors">Terms of Service</a>
+        </div>
+      </div>
     </div>
   </footer>
 );
 
-function MainApp() {
+
+const SplashScreen = ({ onEnter }: { onEnter: () => void }) => {
+  return (
+    <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-gray-900 text-white overflow-hidden">
+      <div className="absolute top-0 left-0 w-full h-full bg-[#007A55]/10 rounded-full blur-[150px] pointer-events-none"></div>
+      
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 flex flex-col items-center text-center px-4"
+      >
+        <div className="bg-[#007A55] p-6 rounded-2xl mb-8 shadow-2xl shadow-[#007A55]/30">
+          <Leaf className="w-16 h-16 text-white" />
+        </div>
+        
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
+          Food<span className="text-[#007A55]">Wise</span>
+        </h1>
+        
+        <p className="text-xl md:text-2xl text-gray-400 max-w-2xl mb-12">
+          Rescue Food. Feed the World. 
+          <br/>
+          <span className="text-sm mt-4 block">National & International Network</span>
+        </p>
+        
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onEnter}
+          className="bg-[#007A55] hover:bg-[#006344] text-white px-10 py-5 rounded-full text-xl font-bold transition-all shadow-lg hover:shadow-xl hover:shadow-[#007A55]/40 flex items-center gap-3"
+        >
+          Enter Website <ArrowRight className="w-6 h-6" />
+        </motion.button>
+      </motion.div>
+    </div>
+  );
+};
+
+export default function FoodWiseApp() {
+  const [entered, setEntered] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "problem", "about", "solution", "how-it-works", "deals", "impact", "pilot"];
+      const sections = ["home", "partner-dashboard", "corporate-deals", "order", "donate", "track", "education", "pricing", "security", "impact"];
       let current = "home";
       
       for (const section of sections) {
@@ -789,63 +813,26 @@ function MainApp() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  if (!entered) {
+    return <SplashScreen onEnter={() => setEntered(true)} />;
+  }
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-[#007A55] selection:text-white">
       <Navbar activeSection={activeSection} />
       <main>
         <Hero />
-        <Problem />
-        <AboutWaste />
-        <Audience />
-        <Solution />
-        <HowItWorks />
-        <DealsAndSubscription />
-        <Goals />
-        <Benefits />
-        <PilotForm />
+        <PartnerDashboard />
+        <CorporateDeals />
+        <OrderFood />
+        <DonateFood />
+        <LiveTracking />
+        <FoodWasteEducation />
+        <SubscriptionPayment />
+        <SecurityTrust />
+        <AboutOrganization />
       </main>
       <Footer />
     </div>
   );
-}
-
-export default function WasteWiseApp() {
-  const [hasEntered, setHasEntered] = useState(false);
-
-  if (!hasEntered) {
-    return (
-      <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[#007A55] opacity-10"></div>
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#007A55] rounded-full blur-[100px] opacity-20 animate-pulse"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500 rounded-full blur-[100px] opacity-10 animate-pulse" style={{ animationDelay: '1s' }}></div>
-        
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 flex flex-col items-center text-center max-w-2xl"
-        >
-          <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-md mb-8 border border-white/20">
-            <Leaf className="w-16 h-16 text-emerald-400" />
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6">
-            WasteWise
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-12 font-light">
-            Don&apos;t waste good food. <span className="text-emerald-400 font-medium">Share it.</span>
-          </p>
-          
-          <button 
-            onClick={() => setHasEntered(true)}
-            className="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-[#007A55] font-pj rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#007A55] hover:bg-[#006344] hover:shadow-lg hover:shadow-[#007A55]/30 hover:-translate-y-1"
-          >
-            <span className="text-lg">Enter Presentation</span>
-            <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
-          </button>
-        </motion.div>
-      </div>
-    );
-  }
-
-  return <MainApp />;
 }
